@@ -170,3 +170,77 @@ root@ip-172-31-54-254:~/localrepo# history
   169  git push
   170  git push origin tag release0.1
   171  history
+
+
+  root@kubework2:~# history
+    1  docker images
+    2  docker ps
+    3  docker ps -a
+    4  docker run -it ubuntu /bin/bash
+    5  docker ps
+    6  docker ps -a
+    7  docker run -it -d ubuntu /bin/bash
+    8  docker ps
+    9  docker run -it -d --name demo ubuntu /bin/bash
+   10  docker ps
+   11  ps -ef | grep -i docker
+   12  docker ps
+   13  docker exec -it ec825517501a /bin/bash
+   14  docker ps
+   15  docker stop 9b61d470ad16
+   16  docker ps -a
+   17  docker ps
+   18  docker kill ec825517501a
+   19  docker ps -a
+   20  docker rm 9b61d470ad16
+   21  docker ps -a
+   22  docker images
+   23  docker ps
+   24  docker rmi ubuntu
+   25  docker rmi ubuntu -f
+   26  docker images
+   27  docker ps -a
+   28  docker pull ubuntu:14.04
+   29  docker imags
+   30  docker images
+   31  docker pull ubuntu
+   32  docker images
+   33  docker run -it -d --name apache 74435f89ab78 /bin/bash
+   34  docker ps
+   35  docker exec -it 061feb40f6ff /bin/bash
+   36  docker ps
+   37  docker commit 061feb40f6ff ankushgupta0727/apache2-demo
+   38  docker images
+   39  docker login
+   40  docker push ankushgupta0727/apache2-demo
+   41  docker push ubuntu:latest
+   42  docker tag ubuntu:latest ankushgupta0727/ubuntu-demo
+   43  docker image
+   44  docker images\
+   45  docker images
+   46  docker push ankushgupta0727/ubuntu-demo
+   47  docker commit 061feb40f6ff ankushgupta0727/apache2-demo:v1.0
+   48  docker pimages
+   49  docker images
+   50  docker push ankushgupta0727/apache2-demo:v1.0
+   51  docker ps
+   52  docker images
+   53  ifconfig
+   54  docker ps
+   55  docekr run -d -p 80:80 apache2
+   56  docker run -d -p 80:80 apache2
+   57  docker run -d -p 80:80 httpd
+   58  docker ps
+   59  docker run -d -p 8080:80 httpd
+   60  docker ps
+   61  netstat -tunlp
+   62  curl -v http://localhost:8080
+   63  ifconfig
+   64  curl -v http://10.128.0.56:8080
+   65  docker ps
+   66  docker inspect 3999a35c31d5
+   67  netstat -tunlp
+   68  env
+   69  history
+   70  iptables -L
+   71  history
