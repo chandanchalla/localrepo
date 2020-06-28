@@ -244,3 +244,125 @@ root@ip-172-31-54-254:~/localrepo# history
    69  history
    70  iptables -L
    71  history
+    72  ifconfig
+   73  docker ps
+   74  docekr run -d -p 80:80 apache2
+   75  docker run -d -p 80:80 apache2
+   76  docker run -d -p 80:80 httpd
+   77  docker ps
+   78  docker run -d -p 8080:80 httpd
+   79  docker ps
+   80  netstat -tunlp
+   81  curl -v http://localhost:8080
+   82  ifconfig
+   83  curl -v http://10.128.0.56:8080
+   84  docker ps
+   85  docker inspect 3999a35c31d5
+   86  netstat -tunlp
+   87  env
+   88  history
+   89  iptables -L
+   90  history
+   91  docker search windows
+   92  docker pull microsoft/windowsservercore
+   93  docker pull microsoft/windowsservercore:latest
+   94  docker pull mcr.microsoft.com/windows/servercore
+   95  docker run mcr.microsoft.com/windows/servercore:ltsc2019
+   96  pwd
+   97  mkdir demo
+   98  pwd
+   99  ls -la
+  100  cd demo/
+  101  ls -l
+  102  vim Dockerfile
+  103  ls -
+  104  ls -l
+  105  echo "hello Friends" > index.html
+  106  ls -l
+  107  docker build -t testapache .
+  108  vim Dockerfile
+  109  docker build -t testapache .
+  110  docker images
+  111  docker run -d -p 8081:80 testapache
+  112  docker images
+  113  docker ps
+  114  vim Dockerfile
+  115  docker run -it -d --name overridecmd testapache /bin/bash
+  116  docker ps
+  117  vim Dockerfile
+  118  docker build -t apacheentrypoint .
+  119  docker images
+  120  docker run -it -d --name entryoverride apacheentrypoint /bin/bash
+  121  docker ps
+  122  vim Dockerfile
+  123  docker build -t apacheentrypoint .
+  124  vim D
+  125  vim Dockerfile
+  126  history
+  127  vim Dockerfile
+  128  docker ps
+  129  vim Dockerfile
+  130  docker --help
+  131  cat Dockerfile
+  132  docker volume ls
+  133  docker volume create myvol
+  134  docker volume ls
+  135  docker run -d --mount source=myvol,destination=/var/www/html -d -p 8082:80 testapache
+  136  docker ps
+  137  docker exec -it 404efeece4e9 /bin/bash
+  138  cd /var/lib/docker/
+  139  ls -l
+  140  cd volumes/
+  141  ls -l
+  142  cd myvol/_data/
+  143  ls -l
+  144  docker run -d --mount source=myvol,destination=/var/www/html -d -p 8082:80 testapache
+  145  docker run -d --mount source=myvol,destination=/var/www/html -d -p 8083:80 testapache
+  146  docker ps
+  147  pwd
+  148  ll
+  149  cd
+  150  docker volume --help
+  151  mkdir /data
+  152  ls -l
+  153  ls -l /data
+  154  docker run -d -v /data:/var/www/html testapache
+  155  docker ps
+  156  cd /data/
+  157  ls- l
+  158  ls -l
+  159  pwd
+  160  docker exec -it  069fc6ba55fd /bin/bash
+  161  pwd
+  162  ls -l
+  163  docker ps
+  164  docker stop 069fc6ba55fd  27ef0d796247 404efeece4e9 5d80463b4fe5 e57a1e68350b 4ac36cf1c086 3999a35c31d5
+  165  docker ps
+  166  docker run -it -d --name container1 ubuntu /bin/bash
+  167  docker ps
+  168  docker exec -it 8529e5b7f9ca /bin/bash
+  169  docker run -it --name container2 --link container1 -d ubuntu /bin/bash
+  170  docker exec -it fd983faaa4912d5a6b87aa843151802f395f6f0e28ee7ba1bbe79e1e1050b176 /bin/bash
+  171  curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+  172  chmod +x /usr/local/bin/docker-compose
+  173  docker-compose version
+  174  vim docker-compose.yml
+  175  docker-compose up
+  176  docker-compose up -d
+  177  docker ps
+  178  vim docker-compose.yml
+  179  ifconfig
+  180  docker network ls
+  181  docker inspect network data_default
+  182  docker network create --driver bridge demonetwork
+  183  docker network ls
+  184  docker network create --help
+  185  ifconfig
+  186  docker network ls
+  187  docker network create --help
+  188  docker network ls
+  189  docker inspect network ea666f07b7a6
+  190  docker network ls
+  191  docker network --help
+  192  history
+
