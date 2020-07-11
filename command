@@ -366,3 +366,158 @@ root@ip-172-31-54-254:~/localrepo# history
   191  docker network --help
   192  history
 
+
+
+
+  97  apt-get install curl
+   98  apt-get update
+   99  apt-get remove curl
+  100  apt-get install curl -y
+  101  apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+  102  apt-get install software-properties-common
+  103  apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+  104  apt-get install kubemad
+  105  apt-get install kubeadm
+  106  kubeadm version
+  107  kubeadm init --pod-network-cidr=10.244.0.0/16
+  108  mkdir -p $HOME/.kube
+  109  udo chown $(id -u):$(id -g) $HOME/.kube/config
+  110  kubectl cluster-info
+  111  netstat -tunlp
+  112  ifconfig
+  113  kubectl get node
+  114  kubectl get namepsace
+  115  kubectl get namespace
+  116  kubectl get pods -n kube-system
+  117  kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  118  kubectl get pods -n kube-system
+  119  kubectl get node
+  120  netstat -tunlp
+  121  cat /etc/kubernetes/admin.conf
+  122  cat .kube/config
+  123  kubectl get nodes
+  124  kubectl get namespace
+  125  kubectl create namespace demo
+  126  kubectl get namespace
+  127  vim namespace.yml
+  128  ls -l
+  129  mv '\` namespace.yml
+  130  mv '\' namespace.yml
+  131  ls -l
+  132  cat namespace.yml
+  133  kubectl create -f namespace.yml
+  134  kubectl get namespace
+  135  mkdir /data
+  136  vim pv.yml
+  137  kubectl create -f pv.yml
+  138  kubectl get pv
+  139  vim pvc.yml
+  140  kubectl create -f pvc.yml
+  141  kubectl get pvc -n deployment-demo
+  142  kubectl get pv
+  143  vim deployment.yml
+  144  kubectl create -f deployment.yml
+  145  vim deployment.yml
+  146  kubectl create -f deployment.yml
+  147  vim deployment.yml
+  148  kubectl create -f deployment.yml
+  149  vim deployment.yml
+  150  kubectl create -f deployment.yml
+  151  vim deployment.yml
+  152  kubectl create -f deployment.yml
+  153  vim deployment.yml
+  154  kubectl create -f deployment.yml
+  155  kubectl apply -f deployment.yml
+  156  kubectl get pods -n deployment-demo
+  157  kubectl get pods -n deployment-demo -o wide
+  158  netstat -tunlp
+  159  kubectl get pods -n deployment-demo -o wide
+  160  kubectl describe pod nginx-5bd8d554f9-jk2r6 -n deployment-demo
+  161  kubectl get pods -n deployment-demo -o wide
+  162  history
+root@kmaster:~#
+
+
+
+root@kmaster:~# cat namespace.yml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: deployment-demo
+  labels:
+    apps: web-based
+  annotations:
+    type: demo
+
+
+root@kmaster:~# cat pv.yml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: myvol
+  namespace: deployment-demo
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data"
+
+
+root@kmaster:~# cat pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-vol
+  namespace: deployment-demo
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+
+root@kmaster:~# cat deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+  namespace: deployment-demo
+  annotations:
+    monitoring: "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+        volumeMounts:
+        - name: pvc1
+          mountPath: /tmp
+      volumes:
+      - name: pvc1
+        persistentVolumeClaim:
+          claimName: my-vol
+
