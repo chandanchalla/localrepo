@@ -521,3 +521,184 @@ spec:
         persistentVolumeClaim:
           claimName: my-vol
 
+163  cat namespace.yml
+  164  cat pv.yml
+  165  cat pvc.yml
+  166  cat deployment.yml
+  167  kubectl get node
+  168  kubectl get namespace
+  169  kubectl get pods -n deployment-demo
+  170  ls -l
+  171  kubectl get svc -n deployment-demo
+  172  vim service.yml
+  173  kubectl describe pod nginx-6d688db978-xwght -n deployment-demo
+  174  cat service.yml
+  175  kubectl create -f service.yml
+  176  kubectl get svc -n deployment-demo
+  177  kubectl get pods -n deployment-demo -o wide
+  178  kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+  179  kubectl get pods -n ingress-nginx
+  180  vim nginx-service.yml
+  181  kubectl create -f nginx-service.yml
+  182  kubectl get svc -n ingress-nginx
+  183  kubectl get pods -n ingress-nginx -o wide
+  184  vim nginx-rules.yml
+  185  kubectl get svc -n deployment-demo
+  186  kubectl create -f nginx-rules.yml
+  187  kubectl get pods -n deployment-demo
+  188  kubectl exec --help
+  189  kubectl exec -it nginx-6d688db978-xwght -- /bin/bash
+  190  kubectl exec -it nginx-6d688db978-xwght -- /bin/bash -n deployment-demo
+  191  kubectl  -n deployment-demoexec -it nginx-6d688db978-xwght -- /bin/bash
+  192  kubectl  -n deployment-demo exec -it nginx-6d688db978-xwght -- /bin/bash
+  193  kubectl get pods -n deployment-demo
+  194  kubectl  -n deployment-demo exec -it nginx-6d688db978-zlk2z -- /bin/bash
+  195  vim nginx-rules.yml
+  196  cat deployment.yml
+  197  ll
+  198  cat service.yml
+  199  cat  nginx-service.yml
+  200  kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+  201  kubectl get pods -n kube-system
+  202  kubectl get svc -n kube-system
+  203  vim admin.yml
+  204  kubectl create -f admin.yml
+  205  kubectl edit svc kubernetes-dashboard  -n kube-system
+  206  kubectl get svc -n kube-system
+  207  kubectl proxy &
+  208  kubectl get pods -n kube-system -o wide
+  209  kubectl -n kube-system get secret | grep -i admin-user
+  210  kubectl -n kube-system describe admin-user-token-fzb4g
+  211  kubectl -n kube-system describe secret  admin-user-token-fzb4g
+  212  vim quota.yml
+  213  kubectl create -f quota.yml
+  214  kubectl get resourcequota
+  215  vim deployment-quota.yml
+  216  vim nginx-rules.yml
+  217  ls -l
+  218  kubectl delete -f quota.yml
+  219  vim deployment.yml
+  220  kubectl apply -f deployment
+  221  kubectl apply -f deployment.yml
+  222  kubectl get pods -n deployment-demo
+  223  kubectl edit deployment nginx -n deployment-demo
+  224  kubectl get pods -n deployment-demo
+  225  kubectl describe pods nginx-796d7c8884-8f7fc -n deployment-demo
+  226  cd .kube/
+  227  cat config
+  228  history
+
+root@kmaster:~# cat service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: deployment-demo
+spec:
+  ports:
+  - nodePort: 30500
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+  type: NodePort
+
+
+root@kmaster:~# cat quota.yml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-demo
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+
+
+root@kmaster:~# cat deployment-quota.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-quota-demo
+spec:
+  selector:
+    matchLabels:
+      purpose: quota-demo
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        purpose: quota-demo
+    spec:
+      containers:
+      - name: pod-quota-demo
+        image: nginx
+
+
+root@kmaster:~# cat nginx-service.yml
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  externalTrafficPolicy: Local
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https
+      
+ root@kmaster:~# cat nginx-rules.yml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  namespace: deployment-demo
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80
+
+
+root@kmaster:~# cat admin.yml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kube-system
+
+ 
+
